@@ -1,14 +1,3 @@
--- Sharkx Client -- SwordHax v3; Made with Code <3
--------------------------------------------------------
--- open sourced cause i probably won't develop this
--- anymore
--------------------------------------------------------
-
--- General Variables & Functions --
-Players = game:GetService("Players")
-Player = Players.LocalPlayer
-
--- Sharkx Client Variables & Functions --
 SharkxClient = {
     -- Init SharkxClient Variables --
     isReach = false,
@@ -101,6 +90,13 @@ end
 
 function SharkxClient:ToggleReach()
     self.isReach = not self.isReach
+    if self.isReach then
+        self:SetReachType("Box")
+        self:SetReach(Vector3.new(1, 0.800000011920929, 4))
+    else
+        self:SetReachType("Box")
+        self:SetReach(Vector3.new(1, 1, 1))
+    end
 end
 
 function SharkxClient:ToggleAutoclick()
@@ -108,17 +104,110 @@ function SharkxClient:ToggleAutoclick()
 end
 
 function SharkxClient:ToggleSpin()
-    self.Spin = not self.Spin
+    self.Spin = notSharkxClient = {
+    -- Init SharkxClient Variables --
+    isReach = false,
+    curReach = "Spoof",
+    damageAmp = false,
+    reachMagnitude = Vector3.new(1, 0.800000011920929, 4),
+    reachType = "Box",
+    selBox = false,
+    selBoxColor = Color3.fromRGB(0,0,0),
+
+    cWalkspeed = 16,
+    cJumppower = 50,
+    cWalking = false,
+    CFSpeed = 1.35,
+
+    Autoclick = false,
+    Spin = false
+}
+
+function SharkxClient:Interpolate(part, targetCFrame, duration)
+    return coroutine.wrap(function()
+        local startTime = tick()
+        local startCFrame = part.CFrame
+        while tick() - startTime < duration do
+            local elapsedTime = tick() - startTime
+            local progress = elapsedTime / duration
+            part.CFrame = startCFrame:lerp(targetCFrame, progress)
+            wait()
+        end
+    end)
 end
 
-function SharkxClient:ToggleCWalking()
-    self.cWalking = not self.cWalking
+function SharkxClient:SetCFrame(part, targetCFrame)
+    return coroutine.wrap(function()
+        local startTime = tick()
+        local startCFrame = part.CFrame
+        while tick() - startTime < 0.1 do
+            local elapsedTime = tick() - startTime
+            local progress = elapsedTime / 0.1
+            part.CFrame = startCFrame:lerp(targetCFrame, progress)
+            wait()
+        end
+        part.CFrame = targetCFrame
+    end)
 end
 
-function SharkxClient:ToggleSelBox()
-    self.selBox = not self.selBox
+function SharkxClient:SetReach(reach)
+    self.reachMagnitude = reach
 end
 
-function SharkxClient:Update()
-    if self.cWalking then
-        Player.Character.Humanoid.WalkSpeed = self.CFSpeed * self
+function SharkxClient:SetReachType(reachType)
+    self.reachType = reachType
+end
+
+function SharkxClient:SetDamageAmp(damageAmp)
+    self.damageAmp = damageAmp
+end
+
+function SharkxClient:SetSelBoxColor(color)
+    self.selBoxColor = color
+end
+
+function SharkxClient:SetSelBox(bool)
+    self.selBox = bool
+end
+
+function SharkxClient:SetCWalkspeed(cWalkspeed)
+    self.cWalkspeed = cWalkspeed
+end
+
+function SharkxClient:SetCJumppower(cJumppower)
+    self.cJumppower = cJumppower
+end
+
+function SharkxClient:SetCWalking(cWalking)
+    self.cWalking = cWalking
+end
+
+function SharkxClient:SetCFSpeed(CFSpeed)
+    self.CFSpeed = CFSpeed
+end
+
+function SharkxClient:SetAutoclick(Autoclick)
+    self.Autoclick = Autoclick
+end
+
+function SharkxClient:SetSpin(Spin)
+    self.Spin = Spin
+end
+
+function SharkxClient:ToggleReach()
+    self.isReach = not self.isReach
+    if self.isReach then
+        self:SetReachType("Box")
+        self:SetReach(Vector3.new(1, 0.800000011920929, 4))
+    else
+        self:SetReachType("Box")
+        self:SetReach(Vector3.new(1, 1, 1))
+    end
+end
+
+function SharkxClient:ToggleAutoclick()
+    self.Autoclick = not self.Autoclick
+end
+
+function SharkxClient:ToggleSpin()
+    self.Spin = not
